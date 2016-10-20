@@ -5,6 +5,9 @@ var circle;
 var score=0;
 var simonArray;
 var isOverOrangeRectangle;
+var isOverBlueRectangle;
+var isOverRedActangle;
+var isOverYellowRectangle;
 var sequence = [1];
 var userSequence = []; 
 var sequenceIndex = -1;
@@ -20,8 +23,14 @@ function setup(){
 function draw(){
 
 	fill(255,127,80);
- var square = rect(30, 30, 55, 55);
+ var orangeRectangle = rect(30, 30, 55, 55);
 
+ fill(25,181,254);
+ var blueRectangle = rect(100,30,55,55);
+ fill(207,0,15);
+ var redRectangle = rect(170,30,55,55);
+ fill(245,171,53);
+ var yellowRectangle = rect(240,30, 55,55);
 fill(236,240,241)
  textSize(32);
  text("Score: " + score, 100, 30);
@@ -34,6 +43,28 @@ fill(236,240,241)
 	}
 	else{
 		isOverOrangeRectangle = false;
+	}
+
+	 if(mouseX >= 100 && mouseX <= 100+55 && mouseY >= 30 && mouseY <= 30 +55){
+		isOverBlueRectangle = true;
+
+	}
+	else{
+		isOverBlueRectangle = false;
+	}
+	 if(mouseX >= 170 && mouseX <= 170+55 && mouseY >= 30 && mouseY <= 30 +55){
+		isOverRedRectangle = true;
+
+	}
+	else{
+		isOverRedRectangle = false;
+	}
+	 if(mouseX >= 240 && mouseX <= 240+55 && mouseY >= 30 && mouseY <= 30 +55){
+		isOverYellowRectangle = true;
+
+	}
+	else{
+		isOverYellowRectangle = false;
 	}
 	
 
@@ -48,18 +79,22 @@ function mousePressed(){
 //if it is, match it with the sequence of the simon array
 
 if(isOverOrangeRectangle == true ){
-	userSequence.push(1);
+	alert("orange");
+}
+else if(isOverBlueRectangle == true){
+	alert("blue");
+}
+else if(isOverRedRectangle == true){
+	alert("red");
+}
+	else if(isOverYellowRectangle == true){
+		alert("yellow");
+	}
+		else{
+			alert("NAH!");
+		}
 
 }
-
-sequenceIndex ++;
-if(sequence[sequenceIndex] == userSequence[sequenceIndex]){
-	alert(true);
-
-}
-
-}
-
 function overRectangle(){
 
 
