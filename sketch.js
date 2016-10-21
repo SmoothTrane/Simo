@@ -8,30 +8,39 @@ var isOverOrangeRectangle;
 var isOverBlueRectangle;
 var isOverRedActangle;
 var isOverYellowRectangle;
-var sequence = [1];
-var userSequence = []; 
-var sequenceIndex = -1;
+var orangeR, orangeG, orangeB;
+var yellowR, yellowG, yellowB;
+var redR, redR, redB;
+var blueR, blueR, blueB;
+
+var sequence = [];
+var userSequence = 0; 
+var sequenceIndex = 0;
+var orangeRectangle;
 
 
 function setup(){
 	createCanvas(windowWidth, windowHeight);
 	background(0);
+	setupColors();
+	
+
 
 
 }
 
 function draw(){
 
-	fill(255,127,80);
- var orangeRectangle = rect(30, 30, 55, 55);
+	fill(orangeR,orangeG, orangeB);
+ orangeRectangle = rect(30, 30, 55, 55);
 
- fill(25,181,254);
+ fill(blueR,blueG,blueB);
  var blueRectangle = rect(100,30,55,55);
- fill(207,0,15);
+ fill(redR,redG, redB);
  var redRectangle = rect(170,30,55,55);
- fill(245,171,53);
+ fill(yellowR,yellowG,yellowB);
  var yellowRectangle = rect(240,30, 55,55);
-fill(236,240,241)
+	fill(236,240,241)
  textSize(32);
  text("Score: " + score, 100, 30);
 
@@ -80,25 +89,128 @@ function mousePressed(){
 
 if(isOverOrangeRectangle == true ){
 	alert("orange");
+	//userSequence.push(1);
+	if(sequence[sequenceIndex] === 1){
+		alert("yes");
+		sequenceIndex++;
+	}
+
 }
 else if(isOverBlueRectangle == true){
 	alert("blue");
+	//userSequence.push(2);
+	if(sequence[sequenceIndex] === 2){
+		alert("yes");
+		sequenceIndex++;
+	}
 }
 else if(isOverRedRectangle == true){
 	alert("red");
+	//userSequence.push(3);
+	if(sequence[sequenceIndex] === 3){
+		alert("yes");
+		sequenceIndex++;
+	}
 }
 	else if(isOverYellowRectangle == true){
 		alert("yellow");
+		//userSequence.push(4);
+		if(sequence[sequenceIndex]=== 4){
+		alert("yes");
+		sequenceIndex++;
+	}
+
 	}
 		else{
-			alert("NAH!");
+		for(var i=0; i<3; i++){
+			randomlyHighLightColors();
 		}
+		//setupColors();
+
+	}
+
+userSequence = 0;
+
 
 }
-function overRectangle(){
+function setupColors(){
+	orangeR = 237;
+	orangeG = 93;
+	orangeB = 40;
+	blueR = 0;
+	blueG = 0;
+	blueB = 255;
+	redR =207;
+	redG = 0;
+	redB = 15;
+	yellowR = 247;
+	yellowG = 202;
+	yellowB = 24;
+
+
+
+}
+
+function randomlyHighLightColors(){
 
 
 
 
+var n = Math.floor(Math.random()*4) + 1;
+console.log(n);
 
+    switch(n)
+    {
+        case 1:
+        highlightOrange();
+        break;
+
+        case 2:
+        highlightBlue();
+        break;
+
+        case 3:
+        highlightYellow();
+        break;
+        case 4 :
+        highlightRed();
+        break;
+}
+
+
+
+
+}
+
+
+function highlightBlue(){
+	blueR = 25;
+	blueG = 184;
+	blueB = 254;
+	sequence.push(2)
+
+}
+
+function highlightOrange(){
+
+orangeR = 255;
+orangeG = 153;
+orangeB = 115;
+sequence.push(1);
+}
+function highlightRed(){
+
+redR = 249;
+redG = 79;
+redB = 91;
+sequence.push(3)
+
+
+}
+
+function highlightYellow(){
+yellowR = 255;
+yellowG = 218;
+yellowB = 71;
+sequence.push(4);
 }
