@@ -32,21 +32,21 @@ function setup(){
 function draw(){
 
 	fill(orangeR,orangeG, orangeB);
- orangeRectangle = rect(30, 30, 55, 55);
+ orangeRectangle = rect(100, 30, 200, 200);
 
  fill(blueR,blueG,blueB);
- var blueRectangle = rect(100,30,55,55);
+ var blueRectangle = rect(800,30,200,200);
  fill(redR,redG, redB);
- var redRectangle = rect(170,30,55,55);
+ var redRectangle = rect(100,500,200,200);
  fill(yellowR,yellowG,yellowB);
- var yellowRectangle = rect(240,30, 55,55);
+ var yellowRectangle = rect(800,500, 200,200);
 	fill(236,240,241)
  textSize(32);
- text("Score: " + score, 100, 30);
+ text("Score: " + score, window.width - 200, 30);
 
  //var square2 = rect(100,20,55,55);
  noStroke();
- if(mouseX >= 30 && mouseX <= 30+55 && mouseY >= 30 && mouseY <= 30 +55){
+ if(mouseX >= 100 && mouseX <= 100+200 && mouseY >= 30 && mouseY <= 30 +200){
 		isOverOrangeRectangle = true;
 
 	}
@@ -54,21 +54,21 @@ function draw(){
 		isOverOrangeRectangle = false;
 	}
 
-	 if(mouseX >= 100 && mouseX <= 100+55 && mouseY >= 30 && mouseY <= 30 +55){
+	 if(mouseX >= 800 && mouseX <= 800+200 && mouseY >= 30 && mouseY <= 30 +200){
 		isOverBlueRectangle = true;
 
 	}
 	else{
 		isOverBlueRectangle = false;
 	}
-	 if(mouseX >= 170 && mouseX <= 170+55 && mouseY >= 30 && mouseY <= 30 +55){
+	 if(mouseX >= 100 && mouseX <= 100+200 && mouseY >= 500 && mouseY <= 500 +200){
 		isOverRedRectangle = true;
 
 	}
 	else{
 		isOverRedRectangle = false;
 	}
-	 if(mouseX >= 240 && mouseX <= 240+55 && mouseY >= 30 && mouseY <= 30 +55){
+	 if(mouseX >= 800 && mouseX <= 800+200 && mouseY >= 500 && mouseY <= 500 +200){
 		isOverYellowRectangle = true;
 
 	}
@@ -125,6 +125,7 @@ else if(isOverRedRectangle == true){
 		for(var i=0; i<3; i++){
 			randomlyHighLightColors();
 		}
+
 		//setupColors();
 
 	}
@@ -189,10 +190,11 @@ function highlightBlue(){
 	blueB = 254;
 	sequence.push(2)
 
+
+
 }
 
 function highlightOrange(){
-
 orangeR = 255;
 orangeG = 153;
 orangeB = 115;
