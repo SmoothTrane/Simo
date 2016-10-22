@@ -3,16 +3,14 @@
 var circle;
 //Instance variables at the beginning of the code 
 var score=0;
+var scoreText; 
 var simonArray;
-var isOverOrangeRectangle;
-var isOverBlueRectangle;
-var isOverRedActangle;
-var isOverYellowRectangle;
+var isOverOrangeRectangle, isOverBlueRectangle, isOverRedActangle, isOverYellowRectangle, isOverPlayButton;
 var orangeR, orangeG, orangeB;
 var yellowR, yellowG, yellowB;
 var redR, redR, redB;
 var blueR, blueR, blueB;
-
+var gamePlaying = true;
 var sequence = [];
 var userSequence = 0; 
 var sequenceIndex = 0;
@@ -27,7 +25,7 @@ function setup(){
 }
 
 function draw(){
-
+createButton();
 	fill(orangeR,orangeG, orangeB);
  orangeRectangle = rect(100, 30, 200, 200);
 
@@ -37,9 +35,11 @@ function draw(){
  var redRectangle = rect(100,500,200,200);
  fill(yellowR,yellowG,yellowB);
  var yellowRectangle = rect(800,500, 200,200);
+
 	fill(236,240,241)
  textSize(32);
- text("Score: " + score, window.width - 200, 30);
+ scoreText = "Score: " + score;
+ text(scoreText, window.width - 200, 30);
 
  //var square2 = rect(100,20,55,55);
  noStroke();
@@ -72,6 +72,16 @@ function draw(){
 	else{
 		isOverYellowRectangle = false;
 	}
+	if(mouseX >= 500 && mouseX <= 500+200 && mouseY >= 500 && mouseY <= 500 +200){
+		isOverPlayButton = true;
+
+	}
+	else{
+		//rect(500,500,200,55,15);
+		isOverPlayButton = false;
+	}
+
+
 	
 
  
@@ -83,14 +93,22 @@ function mousePressed(){
 
 //check if mouse distance is inside a square
 //if it is, match it with the sequence of the simon array
-
+if(gamePlaying == true){
 if(isOverOrangeRectangle == true ){
+	console.log("??");
 	alert("orange");
 	//userSequence.push(1);
 	if(sequence[sequenceIndex] === 1){
 		alert("yes");
 		sequenceIndex++;
+		score++;
 	}
+	else{
+		alert("game over !");
+		noLoop();
+		gamePlaying = false;
+	}
+
 
 }
 else if(isOverBlueRectangle == true){
@@ -99,7 +117,15 @@ else if(isOverBlueRectangle == true){
 	if(sequence[sequenceIndex] === 2){
 		alert("yes");
 		sequenceIndex++;
+		score++;
+
 	}
+	else{
+		alert("game over !");
+		noLoop();
+		gamePlaying = false;
+	}
+
 }
 else if(isOverRedRectangle == true){
 	alert("red");
@@ -107,7 +133,14 @@ else if(isOverRedRectangle == true){
 	if(sequence[sequenceIndex] === 3){
 		alert("yes");
 		sequenceIndex++;
+		score++;
 	}
+	else{
+		alert("game over !");
+		noLoop();
+		gamePlaying = false; 
+	}
+
 }
 	else if(isOverYellowRectangle == true){
 		alert("yellow");
@@ -115,30 +148,32 @@ else if(isOverRedRectangle == true){
 		if(sequence[sequenceIndex]=== 4){
 		alert("yes");
 		sequenceIndex++;
+		score++;
+	}
+	else{
+		alert("game over !");
+		noLoop();
+		gamePlaying = false; 
 	}
 
-	}
-		else{
-		//for(var i=0; i<3; i++){
 
+	}
+		else if(isOverPlayButton == true){
+	
 			var interval = setInterval(function(){
-				var randomSelect = Math.floor(Math.random()*6) + 1;
+				var randomSelect = Math.floor(Math.random()*4) + 1;
 				randomlyHighLightColors();
 				if(sequence.length > randomSelect){
 				clearInterval(interval);
 			}
 
 			},900);
-			
-			//randomlyHighLightColors();
-	//}
-	//setupColors();
-		}
-
+	}
+		
 
 
 userSequence = 0;
-
+}
 
 }
 function setupColors(){
@@ -203,8 +238,6 @@ function highlightBlue(){
 	blueB = 254;
 	sequence.push(2)
 
-
-
 }
 
 function highlightOrange(){
@@ -228,4 +261,15 @@ yellowR = 255;
 yellowG = 218;
 yellowB = 71;
 sequence.push(4);
+}
+
+
+function createButton(){
+	fill(255,255,255);
+
+
+var button = rect(500,500,200,55,15);
+fill(0,0,0);
+var yes = text("play",570,535);
+
 }
