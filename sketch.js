@@ -23,9 +23,6 @@ function setup(){
 	createCanvas(windowWidth, windowHeight);
 	background(0);
 	setupColors();
-	
-
-
 
 }
 
@@ -122,13 +119,23 @@ else if(isOverRedRectangle == true){
 
 	}
 		else{
-		for(var i=0; i<3; i++){
-			randomlyHighLightColors();
+		//for(var i=0; i<3; i++){
+
+			var interval = setInterval(function(){
+				var randomSelect = Math.floor(Math.random()*6) + 1;
+				randomlyHighLightColors();
+				if(sequence.length > randomSelect){
+				clearInterval(interval);
+			}
+
+			},900);
+			
+			//randomlyHighLightColors();
+	//}
+	//setupColors();
 		}
 
-		//setupColors();
 
-	}
 
 userSequence = 0;
 
@@ -144,16 +151,15 @@ function setupColors(){
 	redR =207;
 	redG = 0;
 	redB = 15;
-	yellowR = 247;
-	yellowG = 202;
-	yellowB = 24;
+	yellowR = 200;
+	yellowG = 160;
+	yellowB = 4;
 
 
 
 }
 
 function randomlyHighLightColors(){
-
 
 
 
@@ -164,22 +170,29 @@ console.log(n);
     {
         case 1:
         highlightOrange();
+
         break;
 
         case 2:
         highlightBlue();
+
+
         break;
 
         case 3:
         highlightYellow();
+
         break;
         case 4 :
         highlightRed();
+
         break;
 }
 
+window.setTimeout(function(){
+setupColors();
 
-
+},300);
 
 }
 
