@@ -1,8 +1,7 @@
 
 
-var circle;
 //Instance variables at the beginning of the code 
-var score=0;
+var score = 0;
 var scoreText; 
 var simonArray;
 var isOverOrangeRectangle, isOverBlueRectangle, isOverRedActangle, isOverYellowRectangle, isOverPlayButton;
@@ -10,36 +9,39 @@ var orangeR, orangeG, orangeB;
 var yellowR, yellowG, yellowB;
 var redR, redR, redB;
 var blueR, blueR, blueB;
-var gamePlaying = true;
+var gamePlaying = false;
 var sequence = [];
 var userSequence = 0; 
 var sequenceIndex = 0;
 var orangeRectangle;
 
 
+
 function setup(){
 	createCanvas(windowWidth, windowHeight);
-	background(0);
 	setupColors();
+	
 
 }
 
+
 function draw(){
+		background(0);
+
 createButton();
-	fill(orangeR,orangeG, orangeB);
- orangeRectangle = rect(100, 30, 200, 200);
+fill(orangeR,orangeG, orangeB);
+orangeRectangle = rect(100, 30, 200, 200);
+fill(blueR,blueG,blueB);
+var blueRectangle = rect(800,30,200,200);
+fill(redR,redG, redB);
+var redRectangle = rect(100,500,200,200);
+fill(yellowR,yellowG,yellowB);
+var yellowRectangle = rect(800,500, 200,200);
 
- fill(blueR,blueG,blueB);
- var blueRectangle = rect(800,30,200,200);
- fill(redR,redG, redB);
- var redRectangle = rect(100,500,200,200);
- fill(yellowR,yellowG,yellowB);
- var yellowRectangle = rect(800,500, 200,200);
 
-	fill(236,240,241)
- textSize(32);
- scoreText = "Score: " + score;
- text(scoreText, window.width - 200, 30);
+
+
+
 
  //var square2 = rect(100,20,55,55);
  noStroke();
@@ -81,10 +83,23 @@ createButton();
 		isOverPlayButton = false;
 	}
 
+if(sequenceIndex-1 == sequence.length - 1 && sequenceIndex !== 0){
+	sequence = [];
+	sequenceIndex = 0;
+	var interval = setInterval(function(){
+				var randomSelect = Math.floor(Math.random()*4) + 1;
+				randomlyHighLightColors();
+				if(sequence.length > randomSelect){
+				clearInterval(interval);
+			}
+
+			},900);
+}
+
 
 	
+updateScore();
 
- 
 }
 
 
@@ -101,64 +116,60 @@ if(isOverOrangeRectangle == true ){
 	if(sequence[sequenceIndex] === 1){
 		alert("yes");
 		sequenceIndex++;
-		score++;
+		score+=1;
 	}
 	else{
-		alert("game over !");
-		noLoop();
-		gamePlaying = false;
+	alert("Game over play again!");
+	score = 0;
 	}
 
 
 }
 else if(isOverBlueRectangle == true){
-	alert("blue");
 	//userSequence.push(2);
 	if(sequence[sequenceIndex] === 2){
-		alert("yes");
 		sequenceIndex++;
-		score++;
+		score+=1;
 
 	}
 	else{
-		alert("game over !");
-		noLoop();
-		gamePlaying = false;
+		alert("Game over play again!");
+		score = 0;
 	}
 
 }
 else if(isOverRedRectangle == true){
-	alert("red");
 	//userSequence.push(3);
 	if(sequence[sequenceIndex] === 3){
-		alert("yes");
 		sequenceIndex++;
-		score++;
+		score+=1;
 	}
 	else{
-		alert("game over !");
-		noLoop();
-		gamePlaying = false; 
+			alert("Game over play again!");
+		score=0;
 	}
 
 }
 	else if(isOverYellowRectangle == true){
-		alert("yellow");
 		//userSequence.push(4);
 		if(sequence[sequenceIndex]=== 4){
-		alert("yes");
 		sequenceIndex++;
-		score++;
+		score+=1;
 	}
 	else{
-		alert("game over !");
-		noLoop();
-		gamePlaying = false; 
+	alert("Game over play again!");
+		score = 0; 
 	}
 
 
 	}
-		else if(isOverPlayButton == true){
+ 
+
+
+userSequence = 0;
+}
+
+if(isOverPlayButton == true){
 	
 			var interval = setInterval(function(){
 				var randomSelect = Math.floor(Math.random()*4) + 1;
@@ -168,13 +179,9 @@ else if(isOverRedRectangle == true){
 			}
 
 			},900);
+			gamePlaying = false;
 	}
 		
-
-
-userSequence = 0;
-}
-
 }
 function setupColors(){
 	orangeR = 237;
@@ -205,22 +212,17 @@ console.log(n);
     {
         case 1:
         highlightOrange();
-
         break;
 
         case 2:
         highlightBlue();
-
-
         break;
 
         case 3:
         highlightYellow();
-
         break;
         case 4 :
         highlightRed();
-
         break;
 }
 
@@ -273,3 +275,15 @@ fill(0,0,0);
 var yes = text("play",570,535);
 
 }
+
+
+function updateScore() {
+    textSize(32);
+    fill(250);
+     text("Score: " + score, window.width - 200, 30);
+}
+
+
+
+
+
