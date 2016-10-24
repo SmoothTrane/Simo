@@ -1,75 +1,58 @@
 
 
-//Instance variables at the beginning of the code 
+//Instance variables 
 var score = 0;
-var scoreText; 
-var simonArray;
-var isOverOrangeRectangle, isOverBlueRectangle, isOverRedActangle, isOverYellowRectangle, isOverPlayButton;
+var isOverOrangeRectangle, isOverBlueRectangle, isOverRedRectangle, isOverYellowRectangle, isOverPlayButton;
 var orangeR, orangeG, orangeB;
 var yellowR, yellowG, yellowB;
 var redR, redR, redB;
 var blueR, blueR, blueB;
 var gamePlaying = false;
 var sequence = [];
-var userSequence = 0; 
 var sequenceIndex = 0;
-var orangeRectangle;
+var sequenceDone = false;
 
 
 
 function setup(){
 	createCanvas(windowWidth, windowHeight);
 	setupColors();
-	
-
 }
 
 
 function draw(){
-		background(0);
-
-createButton();
-fill(orangeR,orangeG, orangeB);
-orangeRectangle = rect(100, 30, 200, 200);
-fill(blueR,blueG,blueB);
-var blueRectangle = rect(800,30,200,200);
-fill(redR,redG, redB);
-var redRectangle = rect(100,500,200,200);
-fill(yellowR,yellowG,yellowB);
-var yellowRectangle = rect(800,500, 200,200);
-
-
-
-
-
-
- //var square2 = rect(100,20,55,55);
- noStroke();
- if(mouseX >= 100 && mouseX <= 100+200 && mouseY >= 30 && mouseY <= 30 +200){
+	background(0);
+	createButton();
+	fill(orangeR,orangeG, orangeB);
+	var orangeRectangle = rect(100, 30, 200, 200);
+	fill(blueR,blueG,blueB);
+	var blueRectangle = rect(800,30,200,200);
+	fill(redR,redG, redB);
+	var redRectangle = rect(100,500,200,200);
+	fill(yellowR,yellowG,yellowB);
+	var yellowRectangle = rect(800,500, 200,200);
+ 	noStroke();
+  if(mouseX >= 100 && mouseX <= 100+200 && mouseY >= 30 && mouseY <= 30 +200){
 		isOverOrangeRectangle = true;
-
 	}
 	else{
 		isOverOrangeRectangle = false;
 	}
 
-	 if(mouseX >= 800 && mouseX <= 800+200 && mouseY >= 30 && mouseY <= 30 +200){
-		isOverBlueRectangle = true;
-
+	if(mouseX >= 800 && mouseX <= 800+200 && mouseY >= 30 && mouseY <= 30 +200){
+	 isOverBlueRectangle = true;
 	}
 	else{
 		isOverBlueRectangle = false;
 	}
 	 if(mouseX >= 100 && mouseX <= 100+200 && mouseY >= 500 && mouseY <= 500 +200){
 		isOverRedRectangle = true;
-
 	}
 	else{
 		isOverRedRectangle = false;
 	}
 	 if(mouseX >= 800 && mouseX <= 800+200 && mouseY >= 500 && mouseY <= 500 +200){
 		isOverYellowRectangle = true;
-
 	}
 	else{
 		isOverYellowRectangle = false;
@@ -79,18 +62,19 @@ var yellowRectangle = rect(800,500, 200,200);
 
 	}
 	else{
-		//rect(500,500,200,55,15);
 		isOverPlayButton = false;
 	}
 
 if(sequenceIndex-1 == sequence.length - 1 && sequenceIndex !== 0){
 	sequence = [];
 	sequenceIndex = 0;
+	sequenceDone = false;
 	var interval = setInterval(function(){
 				var randomSelect = Math.floor(Math.random()*4) + 1;
 				randomlyHighLightColors();
 				if(sequence.length > randomSelect){
 				clearInterval(interval);
+				sequenceDone = true;
 			}
 
 			},900);
@@ -103,55 +87,55 @@ updateScore();
 }
 
 
+/*
+* Tracks the mouse click event
+* If the game is playing and the sequence is finished, it tracks every simon box click event and matches it with the sequence
+* Also tracks the play button click event to start/restart the game.
+*/
 
 function mousePressed(){
-
-//check if mouse distance is inside a square
-//if it is, match it with the sequence of the simon array
-if(gamePlaying == true){
+if(gamePlaying == true && sequenceDone == true){
 if(isOverOrangeRectangle == true ){
-	console.log("??");
-	alert("orange");
-	//userSequence.push(1);
 	if(sequence[sequenceIndex] === 1){
-		alert("yes");
 		sequenceIndex++;
 		score+=1;
 	}
 	else{
-	alert("Game over play again!");
-	score = 0;
+		alert("Game over play again!");
+		score = 0;
+		sequence = [];
+		sequenceDone = false; 
 	}
 
 
 }
 else if(isOverBlueRectangle == true){
-	//userSequence.push(2);
 	if(sequence[sequenceIndex] === 2){
 		sequenceIndex++;
 		score+=1;
-
 	}
 	else{
 		alert("Game over play again!");
 		score = 0;
+		sequence = [];
+		sequenceDone = false; 
 	}
 
 }
 else if(isOverRedRectangle == true){
-	//userSequence.push(3);
 	if(sequence[sequenceIndex] === 3){
 		sequenceIndex++;
 		score+=1;
 	}
 	else{
-			alert("Game over play again!");
+		alert("Game over play again!");
 		score=0;
+				sequence = [];
+		sequenceDone = false; 
 	}
 
 }
 	else if(isOverYellowRectangle == true){
-		//userSequence.push(4);
 		if(sequence[sequenceIndex]=== 4){
 		sequenceIndex++;
 		score+=1;
@@ -159,31 +143,46 @@ else if(isOverRedRectangle == true){
 	else{
 	alert("Game over play again!");
 		score = 0; 
+		sequence = [];
+		sequenceDone = false; 
 	}
 
 
 	}
  
-
-
-userSequence = 0;
 }
 
+
 if(isOverPlayButton == true){
-	
+			score = 0;
+			sequenceIndex = 0;
+			sequence = [];
 			var interval = setInterval(function(){
-				var randomSelect = Math.floor(Math.random()*4) + 1;
-				randomlyHighLightColors();
-				if(sequence.length > randomSelect){
+			var randomSelect = Math.floor(Math.random()*4) + 1;
+			randomlyHighLightColors();
+			if(sequenceDone == true){
 				clearInterval(interval);
 			}
+			if(sequence.length > randomSelect){
+			  clearInterval(interval);
+				sequenceDone = true;
+			}
+
+
 
 			},900);
-			gamePlaying = false;
+			
+			gamePlaying = true;
 	}
 		
 }
+/*
+* Creates the original colors for the simo says square boxes
+*
+*
+*/
 function setupColors(){
+
 	orangeR = 237;
 	orangeG = 93;
 	orangeB = 40;
@@ -198,8 +197,13 @@ function setupColors(){
 	yellowB = 4;
 
 
-
 }
+
+/*
+* Randomly highlights a box for the user to know which sequence to click.
+*
+*
+*/
 
 function randomlyHighLightColors(){
 
@@ -233,6 +237,9 @@ setupColors();
 
 }
 
+/* 
+* Highlights the blue box
+*/
 
 function highlightBlue(){
 	blueR = 25;
@@ -242,12 +249,18 @@ function highlightBlue(){
 
 }
 
+/* 
+* Highlights the orange box
+*/
 function highlightOrange(){
 orangeR = 255;
 orangeG = 153;
 orangeB = 115;
 sequence.push(1);
 }
+/* 
+* Highlights the red box
+*/
 function highlightRed(){
 
 redR = 249;
@@ -257,6 +270,9 @@ sequence.push(3)
 
 
 }
+/* 
+* Highlights the yellow box
+*/
 
 function highlightYellow(){
 yellowR = 255;
@@ -264,6 +280,10 @@ yellowG = 218;
 yellowB = 71;
 sequence.push(4);
 }
+
+/*
+* Creates the Play button
+*/
 
 
 function createButton(){
@@ -276,11 +296,14 @@ var yes = text("play",570,535);
 
 }
 
+/*
+* Updates the user score
+*/
 
 function updateScore() {
     textSize(32);
     fill(250);
-     text("Score: " + score, window.width - 200, 30);
+    text("Score: " + score, window.width - 200, 30);
 }
 
 
