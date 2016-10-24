@@ -11,6 +11,7 @@ var gamePlaying = false;
 var sequence = [];
 var sequenceIndex = 0;
 var sequenceDone = false;
+var bestScore = 0;
 
 
 
@@ -21,8 +22,12 @@ function setup(){
 
 
 function draw(){
+
 	background(0);
 	createButton();
+		textSize(32);
+    fill(250);
+    text("Best: " + bestScore, window.width - 200, 200);
 	fill(orangeR,orangeG, orangeB);
 	var orangeRectangle = rect(100, 30, 200, 200);
 	fill(blueR,blueG,blueB);
@@ -101,10 +106,8 @@ if(isOverOrangeRectangle == true ){
 		score+=1;
 	}
 	else{
-		alert("Game over play again!");
-		score = 0;
-		sequence = [];
-		sequenceDone = false; 
+		gameOver();
+	
 	}
 
 
@@ -115,10 +118,7 @@ else if(isOverBlueRectangle == true){
 		score+=1;
 	}
 	else{
-		alert("Game over play again!");
-		score = 0;
-		sequence = [];
-		sequenceDone = false; 
+		gameOver();
 	}
 
 }
@@ -128,10 +128,7 @@ else if(isOverRedRectangle == true){
 		score+=1;
 	}
 	else{
-		alert("Game over play again!");
-		score=0;
-				sequence = [];
-		sequenceDone = false; 
+		gameOver();
 	}
 
 }
@@ -141,10 +138,7 @@ else if(isOverRedRectangle == true){
 		score+=1;
 	}
 	else{
-	alert("Game over play again!");
-		score = 0; 
-		sequence = [];
-		sequenceDone = false; 
+		gameOver();
 	}
 
 
@@ -210,7 +204,6 @@ function randomlyHighLightColors(){
 
 
 var n = Math.floor(Math.random()*4) + 1;
-console.log(n);
 
     switch(n)
     {
@@ -304,9 +297,26 @@ function updateScore() {
     textSize(32);
     fill(250);
     text("Score: " + score, window.width - 200, 30);
+
 }
 
 
+/*
+* Stops the sequence of the current game.
+*/
+function gameOver(){
 
+		alert("Game over play again!");
+		if(score => bestScore){
+			bestScore = score;
+
+		}
+		score = 0;
+		sequence = [];
+		sequenceDone = false; 
+
+
+
+}
 
 
